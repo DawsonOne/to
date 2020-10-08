@@ -51,8 +51,8 @@ public class OrderMasterServiceImpl extends ServiceImpl<OrderMasterMapper, Order
     @Autowired
     ProductFeign productFeign;
 
-    @Autowired
-    private RocketMQTemplate rocketMQTemplate;
+    /*@Autowired
+    private RocketMQTemplate rocketMQTemplate;*/
 
     @Override
     public String create(OrderForm orderForm) {
@@ -80,7 +80,7 @@ public class OrderMasterServiceImpl extends ServiceImpl<OrderMasterMapper, Order
             orderDetail.setProductPrice(productInfo.getProductPrice());
             this.orderDetailMapper.insert(orderDetail);
         }
-        this.rocketMQTemplate.convertAndSend("myTopic","有新的订单");
+        //this.rocketMQTemplate.convertAndSend("myTopic","有新的订单");
         if (orderMasterRow == 1) return transforOrder.getOrderId();
         return null;
     }
